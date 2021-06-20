@@ -1,0 +1,31 @@
+.todoform {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 80%;
+  margin: 45px auto;
+}
+
+.todoinput {
+  margin-top: 20px !important;
+  width: 50% !important;
+  font-family: Verdana, Geneva, Tahoma, sans-serif !important;
+}
+
+.todobtn {
+  margin-top: 20px !important;
+  background-color: #4589e0 !important;
+  color: white !important;
+  font-family: 'SF Compact Display' !important;
+  text-transform: none !important;
+  font-size: 20px !important;
+}
+
+@media screen and (max-width: 540px) {
+  .todoform {
+    width: 80%;
+  }
+  .todoinput {
+    width: 100% !important;
+  }
+}

@@ -1,0 +1,140 @@
+/* open sans */
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+
+::placeholder {
+  color: rgb(170, 170, 170);
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: rgb(69, 137, 224);
+  color: white;
+  padding: 0px 20px;
+  height: 60px;
+  box-shadow: 0px 0px 8px 1px #000000;
+}
+
+.header__btn {
+  color: white !important;
+  text-transform: none !important;
+  font-family: 'SF Compact Display' !important;
+}
+
+header > p {
+  font-size: 30px;
+  font-family: 'SF Compact Display';
+  font-weight: 900;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 325px) {
+  header > p {
+    font-size: 20px;
+  }
+}
+.modal {
+  width: 400px;
+  height: 300px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: none;
+  outline: none;
+  background: white;
+  border-radius: 10px;
+}
+
+.loginform {
+  display: flex;
+  padding: 20px;
+
+  align-items: center;
+  flex-direction: column;
+}
+
+.loginform > .input {
+  display: flex;
+  /* border: 1px solid gray; */
+  margin-top: 20px;
+  border-radius: 10px;
+  padding: 5px;
+  background-color: rgb(214, 214, 214);
+}
+
+.loginform > .input > input {
+  border: none;
+  border-radius: 10px;
+  background: transparent;
+  padding-left: 10px;
+  color: #606266;
+  font-size: 18px;
+}
+
+.loginform > .input > input:focus {
+  outline: none;
+  border: none;
+}
+
+.loginform__loginbtn {
+  background-color: rgb(69, 137, 224) !important;
+  margin-top: 20px !important;
+}
+
+.icon {
+  color: #606266 !important;
+}
+
+.registerform {
+  width: 400px;
+  height: 250px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: none;
+  outline: none;
+  background: white;
+  border-radius: 10px;
+}
+
+.registerform > h2 {
+  color: rgb(69, 137, 224);
+  margin-bottom: -10px;
+}
+
+.registerform > .input {
+  display: flex;
+  /* border: 1px solid gray; */
+  margin-top: 20px;
+  border-radius: 10px;
+  padding: 5px;
+  background-color: rgb(214, 214, 214);
+}
+
+.registerform > .input > input {
+  border: none;
+  border-radius: 10px;
+  background: transparent;
+  padding-left: 10px;
+  color: #606266;
+  font-size: 18px;
+}
+
+.registerform__loginbtn {
+  background-color: rgb(69, 137, 224) !important;
+  margin-top: 20px !important;
+}
+
+.registerform > .input > input:focus {
+  outline: none;
+  border: none;
+}
