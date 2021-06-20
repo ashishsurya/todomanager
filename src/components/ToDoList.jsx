@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { db } from '../firebase';
 import './ToDoList.css';
+import ToDoListComponent from './ToDoListComponent';
 
 const ToDoList = () => {
   const [todos, setTodos] = useState([]);
@@ -19,8 +20,15 @@ const ToDoList = () => {
     unsubscribe();
   }, []);
 
-  return (<div className='todolist'>List of todos come here
-  </div>);
+  console.log(todos);
+
+  return (
+    <div className='todolist'>
+      {todos.map((todo) => (
+        <ToDoListComponent key={todo.id} {...todo} />
+      ))}
+    </div>
+  );
 };
 
 export default ToDoList;

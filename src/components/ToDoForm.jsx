@@ -1,4 +1,5 @@
 import { Button, CircularProgress, TextField } from '@material-ui/core';
+import firebase from 'firebase';
 import React, { useState } from 'react';
 import { db } from '../firebase';
 import { useStateValue } from '../StateProvider';
@@ -32,8 +33,9 @@ const ToDoForm = () => {
         title: todoTitle,
         todo: todo,
         username: user.email,
-        createdAt: `${new Date().toDateString()} ${new Date().toTimeString()}`,
+        createdAt: firebase.firestore.FieldValue.serverTimestamp(),
         isCompleted: false,
+        isDeleted:false,
       });
 
       // setting snackbar

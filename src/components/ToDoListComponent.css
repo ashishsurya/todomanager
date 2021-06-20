@@ -1,0 +1,35 @@
+.todolistcomponent {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.outerpaper {
+  width: 80%;
+  margin: 10px auto;
+  font-family: 'SF Compact Dislay' !important;
+}
+
+.todolistcomponent__buttons {
+  display: flex;
+}
+
+.todolistcomponent__title {
+  padding-left: 20px;
+  font-size: 15px;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.text_strike {
+  text-decoration: line-through;
+  font-style: italic;
+}
+
+@media screen and (min-width: 540px) {
+  .outerpaper {
+    width: 60%;
+  }
+  .todolistcomponent__title{
+    font-size: 30px;
+  }
+}

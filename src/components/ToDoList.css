@@ -1,3 +1,12 @@
 .todolist {
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+@media screen and (min-width: 540px) {
+  .todolist {
+    width: 80%;
+    margin: 0 auto;
+  }
 }
