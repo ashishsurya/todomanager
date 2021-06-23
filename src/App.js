@@ -1,3 +1,4 @@
+import { Alert } from '@material-ui/lab';
 import { useEffect } from 'react';
 import './App.css';
 import Header from './components/Header';
@@ -9,7 +10,7 @@ import { useStateValue } from './StateProvider';
 
 function App() {
   // using global state
-  const [{ user }, dispatch] = useStateValue();
+  const [{ user, open, message, severity }, dispatch] = useStateValue();
 
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
@@ -24,9 +25,21 @@ function App() {
   return (
     <div className='app'>
       <Header />
-      {!user && <Main />}
-      {user && (
+      {!user ? (
+        <Main />
+      ) : (
         <>
+          {open && (
+            <Alert
+              onClose={() =>
+                dispatch({ type: 'SET_ALERT', payload: { open: false } })
+              }
+              className='alert'
+              severity={severity}
+            >
+              {message}
+            </Alert>
+          )}
           <ToDoForm />
           <ToDoList />
         </>

@@ -1,37 +1,36 @@
-import { TrafficRounded } from '@material-ui/icons';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { db } from '../firebase';
 import { useStateValue } from '../StateProvider';
 import './ToDoList.css';
 import ToDoListComponent from './ToDoListComponent';
 
 const ToDoList = () => {
-  const [todos, setTodos] = useState([]);
-
-  const [completedTodos, setCompletedTodos] = useState([]);
-
-  const [inCompleteTodos, setInCompleteTodos] = useState([]);
-
   // USING GLOBAL STATE
-  const [{ user }] = useStateValue();
+  const [{ todos }, dispatch] = useStateValue();
 
   useEffect(() => {
-    const unsubscribe = async () => {
-      const ref = db
+    var unsubscribe = async () => {
+      await db
         .collection('todos')
-        .where('username', '==', `${user.email}`);
-
-      await ref.onSnapshot((ss) => {
-        setTodos(
-          ss.docs.map((doc) => ({
-            id: doc.id,
-            ...doc.data(),
-          }))
-        );
-      });
+        .orderBy('createdAt', 'desc')
+        .onSnapshot((ss) => {
+          // Respond to data
+          // ...
+          dispatch({
+            type: 'SET_TODOS',
+            payload: ss.docs.map((doc) => ({
+              id: doc.id,
+              ...doc.data(),
+            })),
+          });
+        });
     };
+
+    // Later ...
+
+    // Stop listening to changes
     unsubscribe();
-  }, [todos, user.email]);
+  }, [dispatch]);
 
   console.log(todos);
 

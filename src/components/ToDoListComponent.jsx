@@ -1,9 +1,11 @@
 import { IconButton, Paper } from '@material-ui/core';
 import { DeleteForever, Done } from '@material-ui/icons';
-import { useEffect } from 'react';
-import { useState } from 'react';
+import PropType from 'prop-types';
+import { useEffect, useState } from 'react';
 import { db } from '../firebase';
 import './ToDoListComponent.css';
+import { useStateValue } from '../StateProvider';
+
 
 const ToDoListComponent = ({
   createdAt,
@@ -15,7 +17,10 @@ const ToDoListComponent = ({
   isDeleted,
 }) => {
   // state variables
+
   const [completed, setCompleted] = useState(isCompleted);
+
+  const [{}, dispatch] = useStateValue()
 
   useEffect(() => {
     const unsubscribe = async () => {
@@ -26,6 +31,19 @@ const ToDoListComponent = ({
 
     unsubscribe();
   }, [completed, id]);
+
+  const handleDelete = async () => {
+    await db.collection('todos').doc(id).delete();
+    
+    dispatch({
+      type: 'SET_ALERT',
+      payload: {
+        open: true,
+        message: 'succesfully deleted',
+        severity: 'success',
+      },
+    });
+  };
 
   return (
     <Paper className='outerpaper' elevation={6}>
@@ -54,10 +72,10 @@ const ToDoListComponent = ({
           </IconButton>
           {/* delete button */}
           <IconButton
-            onClick={() => {}}
             title='Delete'
             color='secondary'
             className='todolistcomponent__icon'
+            onClick={handleDelete}
           >
             <DeleteForever />
           </IconButton>
@@ -65,6 +83,16 @@ const ToDoListComponent = ({
       </div>
     </Paper>
   );
+};
+
+ToDoListComponent.prototype = {
+  createdAt: PropType.any,
+  isCompleted: PropType.bool,
+  title: PropType.string,
+  todo: PropType.string,
+  username: PropType.string,
+  id: PropType.string,
+  isDeleted: PropType.bool,
 };
 
 export default ToDoListComponent;

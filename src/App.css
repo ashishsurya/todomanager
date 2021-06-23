@@ -1,4 +1,10 @@
-.app{
+.app {
   display: flex;
   flex-direction: column;
+  height: fit-content;
+}
+
+.alert {
+  position: relative !important;
+  margin-bottom: -50px !important;
 }
