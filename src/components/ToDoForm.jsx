@@ -22,19 +22,53 @@ const ToDoForm = () => {
         payload: {
           open: true,
           message: 'Title Cannot be empty',
-          severity: 'info',
+          severity: 'error',
         },
       });
+
+      // deleting the alert for better user experience
+
+      setTimeout(() => {
+        dispatch({
+          type: 'SET_ALERT',
+          payload: {
+            open: false,
+            message: '',
+            severity: '',
+          },
+        });
+      }, 4000);
     } else {
       setLoading(true);
       await db.collection('todos').add({
         title: todoTitle,
         todo: todo,
         username: user.email,
-        createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
         isCompleted: false,
         isDeleted: false,
+        createdAt: `${new Date().toTimeString()} ${new Date().toDateString()}`,
       });
+
+      dispatch({
+        type: 'SET_ALERT',
+        payload: {
+          open: true,
+          message: 'Todo List has been Updated',
+          severity: 'success',
+        },
+      });
+
+      setTimeout(() => {
+        dispatch({
+          type: 'SET_ALERT',
+          payload: {
+            open: false,
+            message: '',
+            severity: '',
+          },
+        });
+      }, 4000);
 
       // setting snackbar
 

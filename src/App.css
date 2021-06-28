@@ -5,6 +5,29 @@
 }
 
 .alert {
-  position: relative !important;
-  margin-bottom: -50px !important;
+  width: 300px !important;
+  margin: 10px auto 0 auto !important;
+  position: absolute !important;
+  top: 60px !important;
+  left: 0 !important;
+  right: 0 !important;
+}
+
+.success {
+  background-color: #4caf50 !important;
+  color: white !important;
+}
+
+.info {
+  background-color: #2196f3 !important;
+  color: white !important;
+}
+
+.error {
+  background-color: #f44336 !important;
+  color: white !important;
+}
+
+.MuiAlert-icon {
+  color: white !important;
 }

@@ -5,12 +5,12 @@ import Header from './components/Header';
 import Main from './components/Main';
 import ToDoForm from './components/ToDoForm';
 import ToDoList from './components/ToDoList';
-import { auth } from './firebase';
+import { auth, db } from './firebase';
 import { useStateValue } from './StateProvider';
 
 function App() {
   // using global state
-  const [{ user, open, message, severity }, dispatch] = useStateValue();
+  const [{ user, open, message, severity, todos }, dispatch] = useStateValue();
 
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
@@ -22,6 +22,26 @@ function App() {
     });
   }, [dispatch]);
 
+  useEffect(() => {
+    const unsubscribe = async () => {
+      await db.collection('todos').onSnapshot((ss) => {
+        // Respond to data
+        // ...
+        dispatch({
+          type: 'SET_TODOS',
+          payload: ss.docs.map((doc) => ({
+            id: doc.id,
+            ...doc.data(),
+          })),
+        });
+      });
+    };
+
+    unsubscribe();
+  }, [dispatch]);
+
+  
+
   return (
     <div className='app'>
       <Header />
@@ -31,17 +51,17 @@ function App() {
         <>
           {open && (
             <Alert
+              className={`${severity} alert`}
               onClose={() =>
                 dispatch({ type: 'SET_ALERT', payload: { open: false } })
               }
-              className='alert'
               severity={severity}
             >
               {message}
             </Alert>
           )}
           <ToDoForm />
-          <ToDoList />
+          <ToDoList todos={todos} />
         </>
       )}
     </div>

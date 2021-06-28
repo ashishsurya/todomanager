@@ -1,11 +1,10 @@
-import { IconButton, Paper } from '@material-ui/core';
+import { IconButton, Modal, Paper } from '@material-ui/core';
 import { DeleteForever, Done } from '@material-ui/icons';
 import PropType from 'prop-types';
 import { useEffect, useState } from 'react';
 import { db } from '../firebase';
-import './ToDoListComponent.css';
 import { useStateValue } from '../StateProvider';
-
+import './ToDoListComponent.css';
 
 const ToDoListComponent = ({
   createdAt,
@@ -20,7 +19,9 @@ const ToDoListComponent = ({
 
   const [completed, setCompleted] = useState(isCompleted);
 
-  const [{}, dispatch] = useStateValue()
+  const [modalOpen, setOpenModal] = useState(false);
+
+  const [{ user }, dispatch] = useStateValue();
 
   useEffect(() => {
     const unsubscribe = async () => {
@@ -34,7 +35,7 @@ const ToDoListComponent = ({
 
   const handleDelete = async () => {
     await db.collection('todos').doc(id).delete();
-    
+
     dispatch({
       type: 'SET_ALERT',
       payload: {
@@ -43,46 +44,71 @@ const ToDoListComponent = ({
         severity: 'success',
       },
     });
+
+    setTimeout(() => {
+      dispatch({
+        type: 'SET_ALERT',
+        payload: {
+          open: false,
+          message: '',
+          severity: '',
+        },
+      });
+    }, 4000);
   };
 
-  return (
-    <Paper className='outerpaper' elevation={6}>
-      <div className='todolistcomponent'>
-        {/* title */}
-        <p
-          className={
-            !completed
-              ? 'todolistcomponent__title'
-              : 'todolistcomponent__title text_strike'
-          }
-        >
-          {title}
-          {/* <small>{createdAt.toDate().toString()}</small> */}
-        </p>
+  const handleTodoCLick = () => {
+    if (isCompleted) {
+      return;
+    } else {
+      setOpenModal(true);
+      console.log('Todo CLicked');
+    }
+  };
 
-        {/* completed button */}
-        <div className='todolistcomponent__buttons'>
-          <IconButton
-            title='Done'
-            onClick={() => setCompleted(!completed)}
-            className='todolistcomponent__icon'
-            color='primary'
+  if (username === user.email) {
+    return (
+      <Paper className='outerpaper' elevation={6}>
+        <div className='todolistcomponent'>
+          {/* title */}
+          <p
+            onClick={handleTodoCLick}
+            className={
+              !completed
+                ? 'todolistcomponent__title'
+                : 'todolistcomponent__title text_strike'
+            }
           >
-            <Done />
-          </IconButton>
-          {/* delete button */}
-          <IconButton
-            title='Delete'
-            color='secondary'
-            className='todolistcomponent__icon'
-            onClick={handleDelete}
-          >
-            <DeleteForever />
-          </IconButton>
+            {title}
+            {/* <small>{createdAt.toDate().toString()}</small> */}
+          </p>
+
+          {/* completed button */}
+          <div className='todolistcomponent__buttons'>
+            <IconButton
+              title='Done'
+              onClick={() => setCompleted(!completed)}
+              className='todolistcomponent__icon'
+              color='primary'
+            >
+              <Done />
+            </IconButton>
+            {/* delete button */}
+            <IconButton
+              title='Delete'
+              color='secondary'
+              className='todolistcomponent__icon'
+              onClick={handleDelete}
+            >
+              <DeleteForever />
+            </IconButton>
+          </div>
         </div>
-      </div>
-    </Paper>
-  );
+      </Paper>
+    );
+  } else {
+    return null;
+  }
 };
 
 ToDoListComponent.prototype = {
