@@ -97,7 +97,7 @@ const ToDoForm = () => {
         onChange={(e) => setTodo(e.target.value)}
       />
       <Button type='submit' className='todobtn'>
-        {loading ? <CircularProgress /> : 'Add todo🚀🚀'}
+        {loading ? <CircularProgress /> : 'Add todo✅✅'}
       </Button>
     </form>
   );

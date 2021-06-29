@@ -1,4 +1,4 @@
-import { IconButton, Modal, Paper } from '@material-ui/core';
+import { IconButton, Paper } from '@material-ui/core';
 import { DeleteForever, Done } from '@material-ui/icons';
 import PropType from 'prop-types';
 import { useEffect, useState } from 'react';

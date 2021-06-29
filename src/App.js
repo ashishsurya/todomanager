@@ -24,23 +24,24 @@ function App() {
 
   useEffect(() => {
     const unsubscribe = async () => {
-      await db.collection('todos').onSnapshot((ss) => {
-        // Respond to data
-        // ...
-        dispatch({
-          type: 'SET_TODOS',
-          payload: ss.docs.map((doc) => ({
-            id: doc.id,
-            ...doc.data(),
-          })),
+      await db
+        .collection('todos')
+        .orderBy('timestamp', 'desc')
+        .onSnapshot((ss) => {
+          // Respond to data
+          // ...
+          dispatch({
+            type: 'SET_TODOS',
+            payload: ss.docs.map((doc) => ({
+              id: doc.id,
+              ...doc.data(),
+            })),
+          });
         });
-      });
     };
 
     unsubscribe();
   }, [dispatch]);
-
-  
 
   return (
     <div className='app'>
