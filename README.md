@@ -1,3 +1,5 @@
-<h1>Todo Manager</h1>
-<p>Simple todo manager built using React, Firebase, Material-UI and managed the state using React Context API</p>
-<a href="https://todo-proj-862d2.web.app/">Live Here</a>
+<img src="https://img.icons8.com/fluency/96/undefined/todo-list.png"/>
+# Todo Manager
+
+# Bugs
+- Todos not rendering on initial rendering
